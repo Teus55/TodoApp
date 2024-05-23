@@ -11,7 +11,7 @@ interface TodoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg todo: Todo)
 
-    @Query("SELECT * FROM todo ORDER BY priority DESC")
+    @Query("SELECT * FROM todo WHERE is_done != 1 ORDER BY priority DESC") //ketambahan where is_done
     fun selectAllTodo(): List<Todo>
 
     @Query("SELECT * FROM todo WHERE uuid= :id")
@@ -23,5 +23,7 @@ interface TodoDao {
     @Delete
     fun deleteTodo(todo: Todo)
 
+    @Query("UPDATE todo SET is_done = 1 WHERE uuid = :id") //untuk merubah is_done
+    fun markAsDone(id: Int)
 
 }
