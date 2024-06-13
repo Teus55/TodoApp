@@ -13,10 +13,12 @@ class TodoWorker(context: Context, params:WorkerParameters): Worker(context,para
 
 
     override fun doWork(): Result {
-        NotificationHelper(applicationContext, activity!!).createNotification(
+        NotificationHelper(applicationContext).createNotification(
             inputData.getString("title").toString(),
             inputData.getString("message").toString())
         return Result.success()
     }
+
+
 }
 

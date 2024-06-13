@@ -18,8 +18,7 @@ import com.example.todoapp.R
 import com.example.todoapp.view.MainActivity
 
 class NotificationHelper(
-    val context: Context,
-    val activity: Activity
+    val context: Context
 ) {
     private val CHANNEL_ID = "todo_channel_id"
     private val NOTIFICATION_ID = 1
@@ -65,18 +64,9 @@ class NotificationHelper(
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
         try {
-//            NotificationManagerCompat.from(context)
-//                .notify(NOTIFICATION_ID, notification)
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(activity,
-                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),REQUEST_NOTIF)
-                return
-            } else {
-                NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
-            }
-
-        } catch (e: SecurityException) {
+            NotificationManagerCompat.from(context)
+                .notify(NOTIFICATION_ID, notification)
+        } catch (e:SecurityException) {
             Log.e("error", e.toString())
         }
     }
